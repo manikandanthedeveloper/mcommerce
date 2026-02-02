@@ -31,14 +31,17 @@ export async function Navbar() {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                     <div className="flex items-center">
-                        <NavigationMenuTrigger>
-                            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                                <Link href="/products">Shop</Link>
-                            </NavigationMenuLink>
+                        <NavigationMenuTrigger className={navigationMenuTriggerStyle()}>
+                            Shop
                         </NavigationMenuTrigger>
                     </div>
                     <NavigationMenuContent>
                         <ul className="grid w-100 gap-2 md:w-125 md:grid-cols-2 lg:w-150">
+                            <li>
+                                <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                                    <Link href="/products">All Products</Link>
+                                </NavigationMenuLink>
+                            </li>
                             {categories.map((category) => (
                                 <LinkDropdown
                                     key={category.name}
