@@ -3,7 +3,17 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import products from "./products.json";
 import categories from "./categories.json";
 import "dotenv/config";
-import { Product } from "@/types/Product";
+type SeedProduct = {
+	name: string;
+	description: string;
+	featured: boolean;
+	image: string;
+	price: number;
+	specialPricePercent?: number;
+	isNew: boolean;
+	clerkId: string;
+	categoryName: string;
+};
 
 const adapter = new PrismaPg({
 	connectionString: process.env["DATABASE_URL"]!,
@@ -32,7 +42,7 @@ export async function main() {
 	}
 
 	// Seed products with category associations
-	for (const product of products as Product[]) {
+	for (const product of products as SeedProduct[]) {
 		const categoryId = categoryMap[product.categoryName];
 		if (!categoryId) {
 			console.warn(`Category not found for product: ${product.name}`);
