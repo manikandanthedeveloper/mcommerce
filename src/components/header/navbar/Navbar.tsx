@@ -31,7 +31,7 @@ export async function Navbar() {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                     <div className="flex items-center">
-                        <NavigationMenuTrigger className={navigationMenuTriggerStyle()}>
+                        <NavigationMenuTrigger className={`${navigationMenuTriggerStyle()} cursor-pointer`}>
                             Shop
                         </NavigationMenuTrigger>
                     </div>
