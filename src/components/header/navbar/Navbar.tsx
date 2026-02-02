@@ -32,9 +32,7 @@ export async function Navbar() {
                 <NavigationMenuItem>
                     <div className="flex items-center">
                         <NavigationMenuTrigger>
-                            <NavigationMenuLink
-                                asChild
-                            >
+                            <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
                                 <Link href="/products">Shop</Link>
                             </NavigationMenuLink>
                         </NavigationMenuTrigger>
