@@ -122,6 +122,3 @@
     @apply bg-background text-foreground;
     }
 }
-body {
-  display: none;
-}
