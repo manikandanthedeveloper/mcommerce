@@ -35,8 +35,8 @@ function NavSearch() {
 
     return (
         <div className="relative w-full max-w-xs">
-            <form className="">
-                <InputGroup>
+            <form className="rounded-none">
+                <InputGroup className="rounded-none">
                     <InputGroupInput
                         placeholder="Search..."
                         className="dark:bg-muted rounded-none focus:ring-0"
@@ -46,7 +46,7 @@ function NavSearch() {
                         onFocus={() => results.length > 0 && setIsOpen(true)}
                     />
                     <InputGroupAddon align="inline-end">
-                        <InputGroupButton variant="secondary" type="submit">Search</InputGroupButton>
+                        <InputGroupButton variant="secondary" type="submit" className="rounded-none">Search</InputGroupButton>
                     </InputGroupAddon>
                 </InputGroup>
             </form>

@@ -11,10 +11,10 @@ import {
 
 import LinkDropdown from "./LinkDropdown"
 import { fetchAllCategories } from "@/util/actions"
-import { Category } from "@/generated/browser";
+import CategoryList from "@/types/CategoryList";
 
 export async function Navbar() {
-    const categories: Category[] = await fetchAllCategories();
+    const categories: CategoryList[] = await fetchAllCategories();
 
     return (
         <NavigationMenu>

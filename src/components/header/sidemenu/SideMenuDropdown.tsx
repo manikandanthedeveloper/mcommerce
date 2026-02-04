@@ -1,5 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,45 +10,53 @@ import {
     BadgeCheckIcon,
     BellIcon,
     CreditCardIcon,
-    LogOutIcon,
+    LogInIcon,
 } from "lucide-react"
 import FavoritesLink from "./FavoritesLink"
 import { BsHeart } from "react-icons/bs"
+import UserIcon from "./UserIcon"
+import { Button } from "@/components/ui/button"
+import { SignedIn, SignedOut } from "@clerk/nextjs"
+import SignedOutLink from "./SignedOutLink"
 
 function SideMenuDropdown() {
     return <DropdownMenu>
         <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="rounded-full">
-                <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" alt="shadcn" />
-                    <AvatarFallback>LR</AvatarFallback>
-                </Avatar>
+            <Button variant="ghost" size="icon" className="flex rounded-none border items-center content-center cursor-pointer">
+                <UserIcon />
             </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-            <DropdownMenuGroup>
+        <DropdownMenuContent align="end" className="rounded-none border">
+            <SignedIn>
+                <DropdownMenuGroup>
+                    <DropdownMenuItem>
+                        <BsHeart />
+                        <FavoritesLink />
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <BadgeCheckIcon />
+                        Account
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <CreditCardIcon />
+                        Billing
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <BellIcon />
+                        Notifications
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                        <SignedOutLink />
+                    </DropdownMenuItem>
+                </DropdownMenuGroup>
+            </SignedIn>
+            <SignedOut>
                 <DropdownMenuItem>
-                    <BsHeart />
-                    <FavoritesLink />
+                    <LogInIcon />
+                    Sign In
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <BadgeCheckIcon />
-                    Account
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <CreditCardIcon />
-                    Billing
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <BellIcon />
-                    Notifications
-                </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-                <LogOutIcon />
-                Sign Out
-            </DropdownMenuItem>
+            </SignedOut>
         </DropdownMenuContent>
     </DropdownMenu>
 }
