@@ -9,5 +9,5 @@ export type Product = {
 	specialPricePercent?: number;
 	isNew: boolean;
 	clerkId: string;
-	categoryId: string;
+	categoryId?: string;
 };
