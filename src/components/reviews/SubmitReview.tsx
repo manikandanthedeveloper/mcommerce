@@ -5,7 +5,6 @@ import { useState } from "react"
 import { Button } from "../ui/button";
 import FormContainer from "../form/FormContainer";
 import { createReviewAction } from "@/util/actions";
-import { Card } from "../ui/card";
 import RatingInput from "./RatingInput";
 import TextAreaInput from "../form/TextAreaInput";
 import SubmitButton from "../form/SubmitButton";
