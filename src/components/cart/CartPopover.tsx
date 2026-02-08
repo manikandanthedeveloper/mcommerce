@@ -11,7 +11,7 @@ import { fetchOrCreateCart } from "@/util/actions"
 import { useAuth } from "@clerk/nextjs"
 import { X } from 'lucide-react'
 import { Cart } from "@/types/Cart"
-import CartLink from "../header/sidemenu/CartLink"
+// import CartLink from "../header/sidemenu/CartLink"
 
 const CartPopover = () => {
     const [cart, setCart] = useState<Cart | null>(null)
@@ -92,10 +92,10 @@ const CartPopover = () => {
                                                     {item.product.name}
                                                 </p>
                                                 <p className="text-xs text-gray-500 mt-1">
-                                                    Qty: {item.quantity}
+                                                    {/* Qty: {item.quantity} */}
                                                 </p>
                                                 <p className="text-sm font-semibold mt-1">
-                                                    ${(item.product.price * item.quantity / 100).toFixed(2)}
+                                                    {/* ${(item.product.price * item.quantity / 100).toFixed(2)} */}
                                                 </p>
                                             </div>
 
