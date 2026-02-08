@@ -11,7 +11,7 @@ const UserIcon = async () => {
         return (
             <Avatar>
                 <AvatarImage src={profileImage} alt={user?.firstName || "User"} />
-                <AvatarFallback className="flex group/avatar items-center justify-center rounded-full">{user?.firstName ? user.firstName.charAt(0) : "U"}</AvatarFallback>
+                <AvatarFallback className="flex group/avatar items-center justify-center rounded-full">{user?.firstName ? user.firstName.charAt(0) : <LuUser className="w-6 h-6 flex items-center justify-center" />}</AvatarFallback>
             </Avatar>
         )
     }

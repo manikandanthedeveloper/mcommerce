@@ -11,12 +11,12 @@ function GridToggle({ totalProducts, layout, searchTerm, slug }: { totalProducts
                     {totalProducts} product{totalProducts !== 1 ? 's' : ''} found
                 </h3>
                 <div className="flex gap-x-4">
-                    <Button variant={layout === 'grid' ? 'default' : 'ghost'} size={"icon"} asChild>
+                    <Button variant={layout === 'grid' ? 'default' : 'ghost'} size={"icon"} className="rounded-none" asChild>
                         <Link href={`${slug === "All Products" ? "/products" : `/products/category/${slug.toLowerCase()}`}?layout=grid${searchTerm ? `${searchTerm}` : ''}`}>
                             <LucideLayoutGrid size={16} />
                         </Link>
                     </Button>
-                    <Button variant={layout === 'list' ? 'default' : 'ghost'} size={"icon"} asChild>
+                    <Button variant={layout === 'list' ? 'default' : 'ghost'} size={"icon"} className="rounded-none" asChild>
                         <Link href={`${slug === "All Products" ? "/products" : `/products/category/${slug.toLowerCase()}`}?layout=list${searchTerm ? `${searchTerm}` : ''}`}>
                             <LucideList size={16} />
                         </Link>

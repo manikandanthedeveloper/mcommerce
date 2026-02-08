@@ -10,7 +10,7 @@ import ProductLabel from "@/components/products/ProductLabel";
 import ProductRating from "@/components/products/ProductRating";
 import PromotionProducts from "@/components/products/PromotionProducts";
 import QuantityModifier from "@/components/products/QuantityModifier";
-import ShareButton from "@/components/products/ShareButton";
+import ShareButton from "@/components/products/single/ShareButton";
 import ProductReviews from "@/components/reviews/ProductReviews";
 import { fetchCategoryById, fetchProductBySlug, findExistingReview } from "@/util/actions";
 import { formatCurrency } from "@/util/format";

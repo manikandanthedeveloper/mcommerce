@@ -48,9 +48,7 @@ const SideMenuDropdownLinks = () => {
                     </Link>
                 );
             })}
-            <Link href="/sign-in">
-                <SignedOutLink />
-            </Link>
+            <SignedOutLink />
         </>
     )
 }

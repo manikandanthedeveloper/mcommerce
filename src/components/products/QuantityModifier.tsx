@@ -2,27 +2,54 @@
 
 import { FaCartPlus, FaMinus, FaPlus } from "react-icons/fa"
 import { Button } from "../ui/button"
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
+import { useAuth } from "@clerk/nextjs";
+import ProductSignInButton from "../form/ProductSignInButton";
+import { addToCartAction } from "@/util/actions";
+import { useActionState, useEffect } from "react";
+import { toast } from "sonner";
 
-function QuantityModifier() {
-    const [count, setCount] = useState(0);
+function QuantityModifier({ productId }: { productId: string }) {
+    const [amount, setAmount] = useState(0);
+    const { userId } = useAuth();
+    const [state, formAction] = useActionState(addToCartAction, { message: '' });
 
-    const handleClick = (callback: () => void) => (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        e.stopPropagation();
-        callback();
+    useEffect(() => {
+        if (state && state.message) {
+            toast.success(state.message);
+        }
+    }, [state]);
+
+    const handleAmountChange = (newAmount: number) => {
+        if (newAmount < 0) return;
+        setAmount(newAmount);
+
+        // Create and submit form with the new amount
+        if (newAmount > 0) {
+            const formData = new FormData();
+            formData.append('productId', productId);
+            formData.append('amount', newAmount.toString());
+            formAction(formData);
+        }
     };
 
     return (
-        <div className="relative z-20">
-            {count ? (
-                <div className="flex items-center">
-                    <Button variant="default" size="sm" className="rounded-none mr-2 cursor-pointer" onClick={handleClick(() => setCount(count - 1))}><FaMinus /></Button>
-                    <span className="mx-2">{count}</span>
-                    <Button variant="default" size="sm" className="rounded-none ml-2 cursor-pointer" onClick={handleClick(() => setCount(count + 1))}><FaPlus /></Button>
+        <>
+            {userId ? (
+                <div>
+                    {amount ? (
+                        <div className="flex items-center">
+                            <Button type="button" variant="default" size="sm" className="rounded-none mr-2 cursor-pointer" onClick={() => handleAmountChange(amount - 1)}><FaMinus /></Button>
+                            <span className="mx-2">{amount}</span>
+                            <Button type="button" variant="default" size="sm" className="rounded-none ml-2 cursor-pointer" onClick={() => handleAmountChange(amount + 1)}><FaPlus /></Button>
+                        </div>
+                    ) : (
+                        <Button type="button" variant="default" size="sm" className="rounded-none cursor-pointer" onClick={() => handleAmountChange(1)}><FaCartPlus /></Button>
+                    )}
                 </div>
-            ) : (<Button variant="default" size="sm" className="rounded-none cursor-pointer" onClick={handleClick(() => setCount(1))}><FaCartPlus /></Button>)}
-        </div>
+            ) : (<ProductSignInButton />)}
+
+        </>
     )
 }
 
