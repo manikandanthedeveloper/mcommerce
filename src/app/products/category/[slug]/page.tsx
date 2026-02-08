@@ -24,11 +24,13 @@ async function CategoryPage({
         categoryId: product.categoryId || ''
     }));
 
-    return <Container className="my-8 h-screen">
+    return (
         <Suspense fallback={<ProductsLoading />}>
-            <ProductsContainer layout={layout || 'grid'} searchQuery={searchQuery || ''} products={products} slug={slug || ''} />
+            <Container className="my-8 h-screen">
+                <ProductsContainer layout={layout || 'grid'} searchQuery={searchQuery || ''} products={products} slug={slug || ''} />
+            </Container>
         </Suspense>
-    </Container>;
+    );
 }
 
 export default CategoryPage

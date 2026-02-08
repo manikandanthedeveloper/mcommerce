@@ -1,23 +1,14 @@
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuGroup,
     DropdownMenuItem,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {
-    BadgeCheckIcon,
-    BellIcon,
-    CreditCardIcon,
-    LogInIcon,
-} from "lucide-react"
-import FavoritesLink from "./FavoritesLink"
-import { BsHeart } from "react-icons/bs"
 import UserIcon from "./UserIcon"
 import { Button } from "@/components/ui/button"
 import { SignedIn, SignedOut } from "@clerk/nextjs"
-import SignedOutLink from "./SignedOutLink"
+import SignInLink from "./SignInLink"
+import SideMenuDropdownLinks from "./SideMenuDropdownLinks"
 
 function SideMenuDropdown() {
     return <DropdownMenu>
@@ -28,33 +19,11 @@ function SideMenuDropdown() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="rounded-none border">
             <SignedIn>
-                <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                        <BsHeart />
-                        <FavoritesLink />
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <BadgeCheckIcon />
-                        Account
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <CreditCardIcon />
-                        Billing
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        <BellIcon />
-                        Notifications
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                        <SignedOutLink />
-                    </DropdownMenuItem>
-                </DropdownMenuGroup>
+                <SideMenuDropdownLinks />
             </SignedIn>
             <SignedOut>
                 <DropdownMenuItem>
-                    <LogInIcon />
-                    Sign In
+                    <SignInLink />
                 </DropdownMenuItem>
             </SignedOut>
         </DropdownMenuContent>

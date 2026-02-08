@@ -49,3 +49,13 @@ export type Product = Prisma.ProductModel
  * 
  */
 export type Category = Prisma.CategoryModel
+/**
+ * Model Favourite
+ * 
+ */
+export type Favourite = Prisma.FavouriteModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel

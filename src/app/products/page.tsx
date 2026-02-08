@@ -16,11 +16,13 @@ async function ProductsPage({ searchParams }: { searchParams: Promise<{ layout?:
     categoryId: product.categoryId // Replace with actual category name lookup if needed
   }));
 
-  return <Container className="my-8 h-screen">
+  return (
     <Suspense fallback={<ProductsLoading />}>
-      <ProductsContainer layout={layout} searchQuery={searchQuery} products={products} slug="All Products" />
-    </Suspense>
-  </Container>;
+      <Container className="my-8 h-screen">
+        <ProductsContainer layout={layout} searchQuery={searchQuery} products={products} slug="All Products" />
+      </Container>
+    </Suspense >
+  );
 }
 
 export default ProductsPage
