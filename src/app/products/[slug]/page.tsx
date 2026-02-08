@@ -74,7 +74,7 @@ async function ProductPage({ params }: { params: { slug: string } }) {
                   <span className="text-2xl font-bold text-primary-dark">{dollarsAmount}</span>
                 )}
               </div>
-              <QuantityModifier />
+              <QuantityModifier productId={productId || ''} />
             </div>
           </section>
           <ProductReviews productId={productId || ''} />
