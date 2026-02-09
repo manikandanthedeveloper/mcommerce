@@ -96,6 +96,7 @@ const CartPopover = () => {
                                                             productName={item.title}
                                                             productImage={item.image}
                                                             productPrice={item.price}
+                                                            productSlug={item.slug}
                                                             amount={item.amount}
                                                             setAmount={(value) => handleAmountChange(item.id, value)}
                                                         />

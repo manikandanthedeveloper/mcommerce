@@ -1,6 +1,6 @@
 "use client"
 
-import { FaCartPlus, FaMinus, FaPlus, FaTrash } from "react-icons/fa"
+import { FaCartPlus, FaMinus, FaPlus } from "react-icons/fa"
 import { Button } from "../ui/button"
 import { useAuth } from "@clerk/nextjs";
 import ProductSignInButton from "../form/ProductSignInButton";
@@ -13,6 +13,7 @@ function QuantityModifier({
     productName,
     productImage,
     productPrice,
+    productSlug,
     amount,
     setAmount,
     isLoading,
@@ -21,6 +22,7 @@ function QuantityModifier({
     productName: string
     productImage: string
     productPrice: string
+        productSlug?: string
     amount?: number
     setAmount?: (value: number) => void | Promise<void>
     isLoading?: boolean
@@ -63,6 +65,7 @@ function QuantityModifier({
                 title: productName,
                 image: productImage,
                 price: productPrice,
+                slug: productSlug,
                 amount: newAmount,
             }));
             toast.success("Added to cart!");
@@ -70,10 +73,6 @@ function QuantityModifier({
             console.error("Failed to update cart:", error);
             toast.error("Failed to update cart");
         }
-    };
-
-    const handleRemove = () => {
-        handleAmountChange(0);
     };
 
     return (

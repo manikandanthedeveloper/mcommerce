@@ -7,7 +7,7 @@ import { updateCartItemAmount, removeFromCart } from '@/store/slices/cartSlice';
 import QuantityModifier from '../products/QuantityModifier';
 
 
-function ThirdColumn({ id, price, amount, productName, productImage }: { id: string; price: string; amount: number; productName: string; productImage: string; }) {
+function ThirdColumn({ id, price, amount, productName, productImage, productId, slug }: { id: string; price: string; amount: number; productName: string; productImage: string; productId: string; slug?: string; }) {
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useAppDispatch();
 
@@ -33,10 +33,11 @@ function ThirdColumn({ id, price, amount, productName, productImage }: { id: str
     return (
         <div className='md:ml-8'>
             <QuantityModifier
-                productId={id}
+                productId={productId}
                 productName={productName}
                 productImage={productImage}
                 productPrice={price}
+                productSlug={slug}
                 amount={amount}
                 setAmount={handleAmountChange} 
                 isLoading={isLoading}

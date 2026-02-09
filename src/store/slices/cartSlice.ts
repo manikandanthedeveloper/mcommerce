@@ -27,6 +27,10 @@ export const cartSlice = createSlice({
 
 			if (existingCartItem) {
 				existingCartItem.amount += amount;
+				// Update slug if provided (to handle updates to existing items)
+				if (action.payload.slug) {
+					existingCartItem.slug = action.payload.slug;
+				}
 			} else {
 				state.cartItems.push({
 					...action.payload,

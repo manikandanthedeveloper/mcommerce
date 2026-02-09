@@ -23,16 +23,16 @@ function CartItemsList({ cartItems }: { cartItems: CartItem[] }) {
     return (
         <div>
             {cartItems.map((cartItem) => {
-                const { id, amount, image, title, price, productId } = cartItem;
+                const { id, amount, image, title, price, productId, slug } = cartItem;
 
                 return (
                     <Card
                         key={id}
-                        className='flex justify-between gap-y-4 md:flex-row flex-wrap p-6 mb-8 gap-x-4 rounded-none'
+                        className='flex justify-between gap-2 md:flex-row flex-wrap p-6 mb-8 rounded-none'
                     >
-                        <FirstColumn image={image} name={title} />
-                        <SecondColumn name={title} productId={productId} />
-                        <ThirdColumn id={id!} amount={amount} productName={title} productImage={image} price={price} />
+                        <FirstColumn image={image} name={title} productId={productId} slug={slug} />
+                        <SecondColumn name={title} productId={productId} slug={slug} />
+                        <ThirdColumn id={id!} amount={amount} productName={title} productImage={image} price={price} productId={productId} slug={slug} />
                         <FourthColumn price={Number(price)} amount={amount} removeItem={() => handleRemoveItem(id!)} />
                     </Card>
                 );

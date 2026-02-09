@@ -68,6 +68,7 @@ function ProductItem({ product, list = false }: { product: Product, list?: boole
                         productName={name}
                         productImage={image}
                         productPrice={String(price)}
+                        productSlug={slug}
                     />
                 </div>
             </CardContent>
