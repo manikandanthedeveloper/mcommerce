@@ -3,14 +3,14 @@
 import Container from "@/components/global/Container";
 import SectionTitle from "@/components/global/SectionTitle";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useAppDispatch } from "@/store/hooks";
 import { clearCart } from "@/store/slices/cartSlice";
 
-const CheckoutSuccessPage = () => {
+const CheckoutSuccessContent = () => {
     const searchParams = useSearchParams();
     const dispatch = useAppDispatch();
     const [status, setStatus] = useState<"loading" | "success" | "error">(
@@ -145,5 +145,13 @@ const CheckoutSuccessPage = () => {
         </Container>
     );
 };
+
+function CheckoutSuccessPage() {
+    return (
+        <Suspense fallback={<div className="p-8 text-center">Loading checkout...</div>}>
+            <CheckoutSuccessContent />
+        </Suspense>
+    );
+}
 
 export default CheckoutSuccessPage;
