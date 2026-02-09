@@ -34,7 +34,7 @@ async function OrderDetailsPage({ params }: { params: { id: string } }) {
         <div className="space-y-6">
             <div className="flex items-center gap-4">
                 <Link href="/myaccount/orders">
-                    <Button variant="outline" size="sm" className="rounded-none">
+                    <Button variant="outline" size="sm" className="rounded-none cursor-pointer">
                         <ArrowLeft className="w-4 h-4 mr-2" />
                         Back to Orders
                     </Button>
