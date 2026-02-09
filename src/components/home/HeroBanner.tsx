@@ -50,7 +50,7 @@ function HeroBanner() {
                     >
                         <Image src={slide.imgSrc} alt={slide.title} fill className="object-cover" loading="eager" priority={index === active} />
                         <div className="relative flex h-full items-center">
-                            <div className="max-w-xl p-6 sm:p-10 bg-black/60 dark:bg-background/30 ml-6 sm:ml-16">
+                            <div className="max-w-xl p-6 sm:p-10 bg-black/60 dark:bg-background/30 ml-6 sm:ml-22 lg:ml-25">
                                 <p className="text-xs uppercase tracking-[0.2em] text-white">
                                     {slide.kicker}
                                 </p>
