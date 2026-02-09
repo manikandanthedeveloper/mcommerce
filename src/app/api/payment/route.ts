@@ -1,5 +1,7 @@
 import Stripe from "stripe";
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
+	apiVersion: "2026-01-28.clover",
+});
 import { type NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
 
@@ -63,7 +65,7 @@ export const POST = async (req: NextRequest) => {
 			metadata: { orderId, cartId },
 			line_items: line_items,
 			mode: "payment",
-			return_url: `${origin}/api/confirm?session_id={CHECKOUT_SESSION_ID}`,
+			return_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}&orderId=${orderId}&cartId=${cartId}`,
 		});
 
 		return new Response(
