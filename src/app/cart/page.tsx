@@ -1,17 +1,24 @@
+'use client';
+
 import CartItemsList from "@/components/cart/CartItemsList";
 import CartTotals from "@/components/cart/CartTotals";
 import Container from "@/components/global/Container";
 import SectionTitle from "@/components/global/SectionTitle";
-import { fetchOrCreateCart, updateCart } from "@/util/actions";
-import { auth } from "@clerk/nextjs/server";
+import { useAppSelector } from "@/store/hooks";
+import { useAuth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-async function CartPage() {
-  const { userId } = await auth();
-  if (!userId) redirect("/");
-  const previousCart = await fetchOrCreateCart({ userId });
-  const { currentCart, cartItems } = await updateCart(previousCart);
-  if (cartItems.length === 0) return <SectionTitle title="Your cart is empty" />
+function CartPage() {
+  const cartItems = useAppSelector((state) => state.cart.cartItems);
+  const { userId } = useAuth();
+
+  if (!userId) {
+    redirect("/");
+  }
+
+  if (cartItems.length === 0) {
+    return <SectionTitle title="Your cart is empty" />;
+  }
 
   return (
     <Container className="my-5">
@@ -21,11 +28,11 @@ async function CartPage() {
           <CartItemsList cartItems={cartItems} />
         </div>
         <div className='lg:col-span-4'>
-          <CartTotals cart={currentCart} />
+          <CartTotals />
         </div>
       </div>
     </Container>
-  )
+  );
 }
 
-export default CartPage
+export default CartPage;

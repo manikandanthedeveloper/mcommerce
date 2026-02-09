@@ -6,36 +6,45 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { Separator } from "../ui/separator"
 import Link from "next/link"
 import Image from "next/image"
-import { useEffect, useState } from "react"
-import { fetchOrCreateCart } from "@/util/actions"
-import { useAuth } from "@clerk/nextjs"
-import { X } from 'lucide-react'
-import { Cart } from "@/types/Cart"
-// import CartLink from "../header/sidemenu/CartLink"
+import { useAppSelector, useAppDispatch } from "@/store/hooks"
+import { removeFromCart, updateCartItemAmount } from "@/store/slices/cartSlice"
+import { toast } from "sonner"
+import { formatCurrency } from "@/util/format"
+import QuantityModifier from "@/components/products/QuantityModifier"
+import { CiTrash } from "react-icons/ci"
 
 const CartPopover = () => {
-    const [cart, setCart] = useState<Cart | null>(null)
-    const [loading, setLoading] = useState(false)
-    const { userId } = useAuth()
+    const cartItems = useAppSelector((state) => state.cart.cartItems)
+    const dispatch = useAppDispatch()
 
-    useEffect(() => {
-        const loadCart = async () => {
-            if (!userId) return
-            try {
-                setLoading(true)
-                const cartData = await fetchOrCreateCart({ userId })
-                setCart(cartData as unknown as Cart)
-            } catch (error) {
-                console.error('Failed to load cart:', error)
-            } finally {
-                setLoading(false)
-            }
+    const handleAmountChange = (itemId: string | undefined, value: number) => {
+        if (!itemId) return;
+
+        if (value === 0) {
+            dispatch(removeFromCart(itemId))
+            toast.success("Item removed from cart")
+            return;
         }
 
-        loadCart()
-    }, [userId])
+        dispatch(updateCartItemAmount({ id: itemId, amount: value }))
+        toast.success("Cart updated!")
+    }
 
-    const cartItemsCount = cart?.numItemsInCart || 0
+    const removeItem = (itemId: string | undefined) => {
+        if (!itemId) return;
+        try {
+            dispatch(removeFromCart(itemId))
+            toast.success("Item removed from cart")
+        } catch (error) {
+            console.error("Failed to remove item:", error)
+            toast.error("Failed to remove item")
+        }
+    }
+
+    const cartItemsCount = cartItems.length
+    const cartTotal = cartItems.reduce((sum: number, item) => {
+        return sum + (Number(item.price) || 0) * item.amount
+    }, 0)
 
     return (
         <Popover>
@@ -55,82 +64,69 @@ const CartPopover = () => {
             </PopoverTrigger>
             <PopoverContent className="w-96 rounded-none p-0" align="end">
                 <div className="bg-white">
-                    {/* Header */}
                     <div className="p-4 bg-gray-50 border-b">
                         <h3 className="font-semibold text-lg">Shopping Cart</h3>
                     </div>
-
-                    {/* Cart Items */}
                     <div className="max-h-80 overflow-y-auto">
-                        {loading ? (
-                            <div className="p-8 text-center text-gray-500">
-                                Loading...
-                            </div>
-                        ) : !cart || cart.cartItems.length === 0 ? (
+                        {cartItems.length === 0 ? (
                             <div className="p-8 text-center text-gray-500">
                                 <p>Your cart is empty</p>
                             </div>
                         ) : (
                             <div className="divide-y">
-                                {cart.cartItems.map((item) => (
-                                    <div key={item.id} className="p-4 hover:bg-gray-50 transition">
-                                        <div className="flex gap-3">
-                                            {/* Product Image */}
+                                    {cartItems.map((item) => (
+                                        <div key={item.id ?? item.productId} className="p-4 hover:bg-gray-50 transition">
+                                            <div className="flex justify-items-start gap-3">
                                             <div className="w-16 h-16 bg-gray-100 rounded shrink-0">
-                                                <Image
-                                                    src={item.product.image}
-                                                    alt={item.product.name}
-                                                    width={64}
-                                                    height={64}
-                                                    className="w-full h-full object-cover"
-                                                />
+                                                    {item.image && (
+                                                        <Image
+                                                            src={item.image}
+                                                            alt={item.title || 'Product'}
+                                                            width={64}
+                                                            height={64}
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                    )}
                                             </div>
-
-                                            {/* Product Details */}
-                                            <div className="flex-1 min-w-0">
-                                                <p className="text-sm font-medium truncate">
-                                                    {item.product.name}
-                                                </p>
-                                                <p className="text-xs text-gray-500 mt-1">
-                                                    {/* Qty: {item.quantity} */}
-                                                </p>
-                                                <p className="text-sm font-semibold mt-1">
-                                                    {/* ${(item.product.price * item.quantity / 100).toFixed(2)} */}
-                                                </p>
+                                                <div className="min-w-0">
+                                                    <p className="text-sm font-medium truncate capitalize">{item.title || 'Product'}</p>
+                                                    <div className="mt-2">
+                                                        <QuantityModifier
+                                                            productId={item.productId}
+                                                            productName={item.title}
+                                                            productImage={item.image}
+                                                            productPrice={item.price}
+                                                            amount={item.amount}
+                                                            setAmount={(value) => handleAmountChange(item.id, value)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="min-w-0 ml-auto justify-between flex flex-col items-end">
+                                                    <p className="text-sm font-semibold mt-1">{formatCurrency((Number(item.price) || 0) * item.amount)}</p>
+                                                    <CiTrash className='cursor-pointer' onClick={() => removeItem(item.id)} color='red' />
+                                                </div>
                                             </div>
-
-                                            {/* Remove Button */}
-                                            <button className="text-gray-400 hover:text-red-500 transition">
-                                                <X size={16} />
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
+                                        </div>))
+                                    }
                             </div>
                         )}
                     </div>
-
-                    {/* Footer - Summary & Actions */}
-                    {cart && cart.cartItems.length > 0 && (
+                    {cartItems.length > 0 && (
                         <>
                             <Separator />
                             <div className="p-4 bg-gray-50 space-y-3">
                                 <div className="space-y-2 text-sm">
                                     <div className="flex justify-between">
                                         <span className="text-gray-600">Subtotal:</span>
-                                        <span className="font-medium">${(cart.cartTotal / 100).toFixed(2)}</span>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <span className="text-gray-600">Tax:</span>
-                                        <span className="font-medium">${(cart.tax / 100).toFixed(2)}</span>
+                                        <span className="font-medium">{formatCurrency(cartTotal)}</span>
                                     </div>
                                     <div className="flex justify-between border-t pt-2 mt-2">
                                         <span className="font-semibold">Total:</span>
-                                        <span className="font-bold text-lg">${(cart.orderTotal / 100).toFixed(2)}</span>
+                                        <span className="font-bold text-lg">{formatCurrency(cartTotal)}</span>
                                     </div>
                                 </div>
                                 <Link href="/cart" className="block">
-                                    <Button className="w-full rounded-none bg-black hover:bg-gray-800">
+                                    <Button className="w-full rounded-none bg-black hover:bg-gray-800 text-white cursor-pointer">
                                         View Cart
                                     </Button>
                                 </Link>

@@ -1,42 +1,46 @@
 'use client';
 
 import { useState } from 'react';
-import SelectProductAmount from '@/components/products/single/SelectProductAmount';
-import { Mode } from '@/components/products/single/SelectProductAmount';
-import FormContainer from '@/components/form/FormContainer';
-import SubmitButton from '@/components/form/SubmitButton';
-import { removeCartItemAction, updateCartItemAction } from '@/util/actions';
 import { toast } from 'sonner';
+import { useAppDispatch } from '@/store/hooks';
+import { updateCartItemAmount, removeFromCart } from '@/store/slices/cartSlice';
+import QuantityModifier from '../products/QuantityModifier';
 
 
-function ThirdColumn({ quantity, id }: { quantity: number; id: string }) {
-    const [amount, setAmount] = useState(quantity);
+function ThirdColumn({ id, price, amount, productName, productImage }: { id: string; price: string; amount: number; productName: string; productImage: string; }) {
     const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useAppDispatch();
 
     const handleAmountChange = async (value: number) => {
         setIsLoading(true);
-        toast.success("Updating...");
-        const result = await updateCartItemAction({
-            amount: value,
-            cartItemId: id,
-        });
-        setAmount(value);
-        toast.success(result.message);
-        setIsLoading(false);
+        toast.info("Updating...");
+        try {
+            if (value === 0) {
+                dispatch(removeFromCart(id));
+                toast.success("Item removed from cart");
+            } else {
+                dispatch(updateCartItemAmount({ id, amount: value }));
+                toast.success("Cart updated!");
+            }
+        } catch (error) {
+            console.error("Failed to update cart:", error);
+            toast.error("Failed to update cart");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
         <div className='md:ml-8'>
-            <SelectProductAmount
+            <QuantityModifier
+                productId={id}
+                productName={productName}
+                productImage={productImage}
+                productPrice={price}
                 amount={amount}
-                setAmount={handleAmountChange}
-                mode={Mode.CartItem}
+                setAmount={handleAmountChange} 
                 isLoading={isLoading}
             />
-            <FormContainer action={removeCartItemAction}>
-                <input type='hidden' name='id' value={id} />
-                <SubmitButton size='sm' className='mt-4' text='remove' />
-            </FormContainer>
         </div>
     );
 }

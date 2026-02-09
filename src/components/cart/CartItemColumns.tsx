@@ -1,6 +1,7 @@
-import { formatCurrency } from '@/util/format';
 import Image from 'next/image';
 import Link from 'next/link';
+import { CiTrash } from "react-icons/ci";
+import { formatCurrency } from '@/util/format';
 
 export const FirstColumn = ({
     name,
@@ -39,6 +40,10 @@ export const SecondColumn = ({
     );
 };
 
-export const FourthColumn = ({ price }: { price: number }) => {
-    return <p className='font-medium md:ml-auto'>{formatCurrency(price)}</p>;
+export const FourthColumn = ({ price, amount, removeItem }: { price: number; amount: number; removeItem: () => void }) => {
+    const lineTotal = price * amount;
+    return <div className='flex flex-col items-end justify-between gap-4'>
+        <p className='font-medium md:ml-auto'>{formatCurrency(lineTotal)}</p>
+        <CiTrash className='cursor-pointer' onClick={removeItem} color='red' />
+    </div>;
 };

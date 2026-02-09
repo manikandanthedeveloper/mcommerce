@@ -12,12 +12,12 @@ export type actionFunction = (
 ) => Promise<{ message: string }>;
 
 export type CartItem = {
+	id?: string;
 	productId: string;
 	image: string;
 	title: string;
 	price: string;
 	amount: number;
-	company: string;
 };
 
 export type CartState = {

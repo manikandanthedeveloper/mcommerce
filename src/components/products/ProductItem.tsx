@@ -63,7 +63,12 @@ function ProductItem({ product, list = false }: { product: Product, list?: boole
                             )}
                         </div>
                     </Link>
-                    <QuantityModifier productId={product.id ?? ""} />
+                    <QuantityModifier
+                        productId={product.id ?? ""}
+                        productName={name}
+                        productImage={image}
+                        productPrice={String(price)}
+                    />
                 </div>
             </CardContent>
         </Card>
