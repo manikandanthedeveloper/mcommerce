@@ -37,5 +37,5 @@ export const GET = async (req: NextRequest) => {
 			statusText: "Internal Server Error",
 		});
 	}
-	redirect("/orders");
+	redirect("/myaccount/orders");
 };

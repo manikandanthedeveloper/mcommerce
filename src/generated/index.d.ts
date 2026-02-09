@@ -10183,10 +10183,10 @@ export namespace Prisma {
 
   export type OrderWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    clerkId?: string
     AND?: OrderWhereInput | OrderWhereInput[]
     OR?: OrderWhereInput[]
     NOT?: OrderWhereInput | OrderWhereInput[]
+    clerkId?: StringFilter<"Order"> | string
     products?: IntFilter<"Order"> | number
     orderTotal?: IntFilter<"Order"> | number
     tax?: IntFilter<"Order"> | number
@@ -10195,7 +10195,7 @@ export namespace Prisma {
     isPaid?: BoolFilter<"Order"> | boolean
     createdAt?: DateTimeFilter<"Order"> | Date | string
     updatedAt?: DateTimeFilter<"Order"> | Date | string
-  }, "id" | "clerkId">
+  }, "id">
 
   export type OrderOrderByWithAggregationInput = {
     id?: SortOrder

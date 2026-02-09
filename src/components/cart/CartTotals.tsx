@@ -31,7 +31,7 @@ function CartTotals() {
                 </CardTitle>
             </Card>
             <FormContainer action={createOrderAction}>
-                <SubmitButton text='Place Order' className='w-full mt-8 rounded-none' />
+                <SubmitButton text='Place Order' className='w-full mt-8 rounded-none cursor-pointer' />
             </FormContainer>
         </div>
     );

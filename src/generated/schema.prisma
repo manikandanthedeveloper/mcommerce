@@ -92,7 +92,7 @@ model Cart {
 
 model Order {
   id         String   @id @default(uuid())
-  clerkId    String   @unique
+  clerkId    String
   products   Int      @default(0)
   orderTotal Int      @default(0)
   tax        Int      @default(0)
