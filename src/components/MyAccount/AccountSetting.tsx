@@ -6,11 +6,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import ChangePasswordModal from "./ChangePasswordModal";
 import EmailNotificationsModal from "./EmailNotificationsModal";
 import PrivacySecurityModal from "./PrivacySecurityModal";
+import DeleteAccountModal from "./DeleteAccountModal";
 
 const AccountSetting = () => {
     const [showPasswordModal, setShowPasswordModal] = useState(false);
     const [showEmailModal, setShowEmailModal] = useState(false);
     const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     return (
         <>
@@ -28,7 +30,7 @@ const AccountSetting = () => {
                             <Button
                                 variant="outline"
                                 size="sm"
-                                className="rounded-none"
+                                className="rounded-none cursor-pointer"
                                 onClick={() => setShowPasswordModal(true)}
                             >
                                 Change
@@ -43,7 +45,7 @@ const AccountSetting = () => {
                             <Button
                                 variant="outline"
                                 size="sm"
-                                className="rounded-none"
+                                className="rounded-none cursor-pointer"
                                 onClick={() => setShowEmailModal(true)}
                             >
                                 Configure
@@ -58,12 +60,32 @@ const AccountSetting = () => {
                             <Button
                                 variant="outline"
                                 size="sm"
-                                className="rounded-none"
+                                className="rounded-none cursor-pointer"
                                 onClick={() => setShowPrivacyModal(true)}
                             >
                                 Manage
                             </Button>
                         </div>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <Card className="rounded-none border-red-200 dark:border-red-900">
+                <CardHeader>
+                    <CardTitle className="text-red-600 dark:text-red-400">Danger Zone</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="space-y-3">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                            This action permanently deletes your account and data.
+                        </p>
+                        <Button
+                            variant="outline"
+                            className="w-full text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 border-red-200 dark:border-red-900 rounded-none"
+                            onClick={() => setShowDeleteModal(true)}
+                        >
+                            Delete Account
+                        </Button>
                     </div>
                 </CardContent>
             </Card>
@@ -79,6 +101,10 @@ const AccountSetting = () => {
             <PrivacySecurityModal
                 isOpen={showPrivacyModal}
                 onClose={() => setShowPrivacyModal(false)}
+            />
+            <DeleteAccountModal
+                isOpen={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
             />
         </>
     );
