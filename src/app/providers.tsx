@@ -96,7 +96,7 @@ function Providers({ children }: { children: ReactNode }) {
   return <>
     <Provider store={store}>
       <CartPersistence>
-        <Toaster position="top-right" richColors />
+        <Toaster position="bottom-right" richColors />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {children}
         </ThemeProvider>
