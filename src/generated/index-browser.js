@@ -160,6 +160,19 @@ exports.Prisma.AddressScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.PaymentMethodScalarFieldEnum = {
+  id: 'id',
+  clerkId: 'clerkId',
+  brand: 'brand',
+  last4: 'last4',
+  expMonth: 'expMonth',
+  expYear: 'expYear',
+  holderName: 'holderName',
+  isDefault: 'isDefault',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -260,6 +273,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   UserPreferences: 'UserPreferences',
   Address: 'Address',
+  PaymentMethod: 'PaymentMethod',
   Product: 'Product',
   Category: 'Category',
   Favourite: 'Favourite',
