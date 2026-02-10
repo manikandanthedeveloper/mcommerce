@@ -131,6 +131,19 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.UserPreferencesScalarFieldEnum = {
+  id: 'id',
+  clerkId: 'clerkId',
+  emailNotificationsOrders: 'emailNotificationsOrders',
+  emailNotificationsNewsletter: 'emailNotificationsNewsletter',
+  emailNotificationsPromotions: 'emailNotificationsPromotions',
+  privacyShowProfile: 'privacyShowProfile',
+  privacyAllowMessages: 'privacyAllowMessages',
+  privacyDataCollection: 'privacyDataCollection',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.AddressScalarFieldEnum = {
   id: 'id',
   clerkId: 'clerkId',
@@ -245,6 +258,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  UserPreferences: 'UserPreferences',
   Address: 'Address',
   Product: 'Product',
   Category: 'Category',

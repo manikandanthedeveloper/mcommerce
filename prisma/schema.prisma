@@ -24,6 +24,19 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
+model UserPreferences {
+  id                              String   @id @default(uuid())
+  clerkId                         String   @unique
+  emailNotificationsOrders        Boolean  @default(true)
+  emailNotificationsNewsletter    Boolean  @default(true)
+  emailNotificationsPromotions    Boolean  @default(true)
+  privacyShowProfile              Boolean  @default(true)
+  privacyAllowMessages            Boolean  @default(true)
+  privacyDataCollection           Boolean  @default(false)
+  createdAt                       DateTime @default(now())
+  updatedAt                       DateTime @updatedAt
+}
+
 model Address {
   id        String   @id @default(uuid())
   clerkId   String
